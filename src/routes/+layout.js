@@ -1,2 +1,2 @@
-import { building } from '$app/environment';
-export const prerender = building ? false : true;
+export const ssr = false;
+export const prerender = true;
