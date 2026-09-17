@@ -1,8 +1,9 @@
 <script>
+    import './layout.css';
     import { clipcrop_step, process_input_for_clipcrop } from "$lib/clipcrop.js";
 
-    let image_url = $state('https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/football-match.jpg');
-    let text = $state('a face');
+    let image_url = $state('https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f0/NASA_HQ_Building.jpg/1280px-NASA_HQ_Building.jpg');
+    let text = $state('a door.');
     let canvas;
 
     function loadImage(image_url) {
@@ -65,24 +66,68 @@
     <h1>CLIP Crop</h1>
     <canvas bind:this={canvas}></canvas>
     <div class="console">
-        <label>Image <input type="text" bind:value={image_url} /></label>
-        <label>Photo of <input type="text" bind:value={text} /></label>
-        <button onclick={(e) => run()}>Run</button>
+        <div class="console-inputs">
+            <label>Image <input type="text" bind:value={image_url} /></label>
+            <button onclick={(e) => run()}>Run</button>
+            <label>Photo of <input type="text" bind:value={text} /></label>
+        </div>
     </div>
 </div>
 
 <style>
     .container {
         margin: auto;
-        max-width: 800px;
+        font-family: monospace;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+    h1 {
         text-align: center;
-        font-family: sans-serif;
     }
     .console {
-        margin: 1em;
+        padding: 2em 1.5em;
+        border-radius: 1em 1em 0 0;
+        background: var(--orange-1);
+        position: sticky;
+        bottom: 0;
+        filter: drop-shadow(0 0 1em #888);
+        margin-top: auto;
+        border-left: 0.5em solid var(--orange-2);
+        border-right: 0.5em solid var(--orange-2);
+        border-top: 0.5em solid var(--orange-2);
+    }
+    .console-inputs {
+        margin: auto;
+        max-width: 350px;
     }
     canvas {
         width: 100%;
         height: auto;
+        max-width: 800px;
+        margin: auto;
+    }
+    input[type="text"], button {
+        padding: 0.2em 0.5em;
+        border-radius: 0.5em;
+        background: #ccc;
+        border: 1px solid #eee;
+        font-size: 1em;
+    }
+    button {
+        padding: 0.25em 0.75em;
+        border-radius: 0.5em;
+        background: #ccc;
+        border: 1px solid #eee;
+        font-size: 1em;
+        cursor: pointer;
+    }
+    label {
+        display: block;
+        margin-block: 1em;
+    }
+    button {
+        float: right;
     }
 </style>

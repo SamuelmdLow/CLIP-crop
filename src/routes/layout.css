@@ -1,0 +1,8 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background: #eee;
+
+    --orange-1: #cd7c64;
+    --orange-2: #ad5f5f;
+}
