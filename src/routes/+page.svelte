@@ -2,7 +2,7 @@
     import { clipcrop_step, process_input_for_clipcrop } from "$lib/clipcrop.js";
 
     let image_url = $state('https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/football-match.jpg');
-    let text = $state('Face');
+    let text = $state('a face');
     let canvas;
 
     function loadImage(image_url) {
@@ -24,7 +24,7 @@
     async function run() {
         const imageElem = loadImage(image_url);
         const ctx = canvas.getContext("2d");
-        let {text_embed, image} = await process_input_for_clipcrop(text, image_url);
+        let {text_embed, image} = await process_input_for_clipcrop("Photo of " + text, image_url);
         
         let current_crop = [0, 0, image.width-1, image.height-1];
 
@@ -66,7 +66,7 @@
     <canvas bind:this={canvas}></canvas>
     <div class="console">
         <label>Image <input type="text" bind:value={image_url} /></label>
-        <label>Text <input type="text" bind:value={text} /></label>
+        <label>Photo of <input type="text" bind:value={text} /></label>
         <button onclick={(e) => run()}>Run</button>
     </div>
 </div>

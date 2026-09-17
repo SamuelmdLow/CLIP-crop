@@ -42,7 +42,7 @@ export async function clipcrop_step(text_embed, image, crop) {
   console.log(String(width) + " " + String(height));
 
   if (width < 5 || height < 5) {
-    const cropped_image = image.crop(crop);
+    const cropped_image = await image.crop(crop);
     const i = 0;
     return { crop, cropped_image, i };
   }
@@ -50,11 +50,16 @@ export async function clipcrop_step(text_embed, image, crop) {
   let candidate_crops = [
     [0,                   0,                    width-1,                      height-1],
     [Math.floor(width/4), 0,                    width-Math.floor(width/4)-1,  height-1],
-    [0,                   Math.floor(height/4), width,                        height-Math.floor(height/4)-1],
+    [0,                   Math.floor(height/4), width-1,                      height-Math.floor(height/4)-1],
     [0,                   0,                    width-1,                      Math.floor(height/2)],
     [0,                   Math.floor(height/2), width-1,                      height-1],
     [0,                   0,                    Math.floor(width/2),          height-1],
     [Math.floor(width/2), 0,                    width-1,                      height-1],
+
+    [Math.floor(width/4), 0, width-1, height-1],
+    [0, Math.floor(height/4), width-1, height-1],
+    [0, 0, width-1-Math.floor(width/4), height-1],
+    [0, 0, width-1, height-1-Math.floor(height/4)],
   ];
 
   candidate_crops = candidate_crops.map(candidate_crop => [
